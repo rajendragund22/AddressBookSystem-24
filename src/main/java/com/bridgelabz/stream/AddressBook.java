@@ -2,25 +2,30 @@ package com.bridgelabz.stream;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Scanner;
 
 public class AddressBook {
     Scanner scan = new Scanner(System.in);
-    private final List<Contacts> list = new ArrayList<>();
+    ArrayList<Contacts> list = new ArrayList<>();
+    public ArrayList<Contacts> arrayRead;
 
     public void operation() {
+        list = arrayRead;
         boolean status = true;
         do {
             System.out.println("Enter the number according to to requirment");
             System.out.println("Enter 1 to Add");
             System.out.println("Enter 2 to Edit");
+            System.out.println("Enter 3 to Delete");
             switch (scan.nextInt()) {
                 case 1:
                     add();
                     break;
                 case 2:
                     edit();
+                case 3:
+                    delete();
+                    break;
             }
         } while (status);
     }
@@ -59,7 +64,6 @@ public class AddressBook {
         String email = scan.next();
         contacts.setEmail(email);
         list.add(contacts);
-        print();
     }
 
     public void edit() {
@@ -107,10 +111,17 @@ public class AddressBook {
         }
     }
 
-    public void print() {
-        Iterator<Contacts> it = list.iterator();
-        while (it.hasNext()) {
-            System.out.println(it.next());
+    public void delete() {
+        System.out.println("Enter your First name:");
+        String firstName = scan.next();
+
+        Iterator<Contacts> iterator = list.listIterator();
+        while (iterator.hasNext()) {
+            Contacts contacts = iterator.next();
+
+            if (firstName.equals(contacts.getFirstName())) {
+                list.remove(contacts);
+            }
         }
     }
 }
